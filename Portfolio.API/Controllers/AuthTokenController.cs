@@ -11,7 +11,7 @@ using System.Security.Principal;
 namespace Portfolio.API.Controllers
 {
     [Route("api/[controller]")]
-    public class LoginController : Controller
+    public class AuthTokenController : Controller
     {
         [AllowAnonymous]
         [HttpPost]
