@@ -21,7 +21,7 @@ namespace Portfolio.API.DAO
             try
             {
                 IMongoDatabase database = mongo.GetDatabase("dbsite");
-                IMongoCollection<User> userdb = database.GetCollection<User>("security");
+                IMongoCollection<UserMongoDB> userdb = database.GetCollection<UserMongoDB>("security");
                 var responseMongo = userdb.Find(x => x.UserID.Equals(userID)).FirstOrDefault();
                 User user = new User() { UserID = responseMongo.UserID, AccessKey = responseMongo.AccessKey };
                 return user;
