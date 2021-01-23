@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "JycsosKyhEDABvc4CQofVqRoYZimGFNfs4cr3eUY7nFZv/7habRrNyBYOV1wz5TC/8R6GSXgiEgv6kHM77zw/w==",
+  "success": true,
+  "projectFilePath": "D:\\Documentos\\Workspace-Git\\Portfolio.API\\Portfolio.API.Business\\Portfolio.API.Business.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Luan\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\Luan\\.nuget\\packages\\microsoft.identitymodel.logging\\6.8.0\\microsoft.identitymodel.logging.6.8.0.nupkg.sha512",
+    "C:\\Users\\Luan\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.8.0\\microsoft.identitymodel.tokens.6.8.0.nupkg.sha512",
+    "C:\\Users\\Luan\\.nuget\\packages\\mongodb.bson\\2.11.6\\mongodb.bson.2.11.6.nupkg.sha512",
+    "C:\\Users\\Luan\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\Luan\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
