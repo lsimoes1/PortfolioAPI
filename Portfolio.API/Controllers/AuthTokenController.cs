@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Portfolio.API.DAO;
@@ -13,6 +14,8 @@ namespace Portfolio.API.Controllers
     [Route("api/[controller]")]
     public class AuthTokenController : Controller
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         [AllowAnonymous]
         [HttpPost]
         public object Post(
@@ -25,16 +28,19 @@ namespace Portfolio.API.Controllers
             User usuarioBase = null;
             if (usuario != null && !String.IsNullOrWhiteSpace(usuario.UserID))
             {
+                log.Info("Requisição de autenticação - UserID: " + usuario.UserID);
                 try
                 {
+                    log.Info("Solicitando credenciais da base de dados - UserID: " + usuario.UserID);
                     usuarioBase = usersDAO.FindByUser(usuario.UserID);
                 }
                 catch (Exception ex)
                 {
+                    log.Error("Erro ao consultar o banco UserID: " + usuario.UserID + " - Error: " + ex.Message);
                     return new
                     {
                         authenticated = false,
-                        message = "Ao consultar UserID - " + ex.Message
+                        message = "Erro ao consultar UserID - " + ex.Message
                     };
                 }
 
@@ -46,6 +52,8 @@ namespace Portfolio.API.Controllers
                 }
                 else
                 {
+                    log.Warn("Usuário não encontado na base - UserID: " + usuario.UserID);
+                    Response.StatusCode = StatusCodes.Status401Unauthorized;
                     return new
                     {
                         authenticated = false,
@@ -56,6 +64,8 @@ namespace Portfolio.API.Controllers
 
             if (credenciaisValidas)
             {
+                log.Info("Credenciais válidas - UserID: " + usuario.UserID);
+
                 ClaimsIdentity identity = new ClaimsIdentity(
                     new GenericIdentity(usuario.UserID, "Login"),
                     new[] {
@@ -66,6 +76,8 @@ namespace Portfolio.API.Controllers
 
                 DateTime dataCriacao = DateTime.Now;
                 DateTime dataExpiracao = DateTime.Now.AddMinutes(5);
+
+                log.Info("Realizando a criação do token - UserID: " + usuario.UserID);
 
                 var handler = new JwtSecurityTokenHandler();
                 var securityToken = handler.CreateToken(new SecurityTokenDescriptor
@@ -79,6 +91,8 @@ namespace Portfolio.API.Controllers
                 });
                 var token = handler.WriteToken(securityToken);
 
+                log.Info("Token criado com sucesso - UserID: " + usuario.UserID);
+
                 return new
                 {
                     authenticated = true,
@@ -90,20 +104,13 @@ namespace Portfolio.API.Controllers
             }
             else
             {
+                log.Warn("Falha na autenticação do token - UserID: " + usuario.UserID);
                 return new
                 {
                     authenticated = false,
                     message = "Falha ao autenticar"
                 };
             }
-        }
-        private bool CustomLifetimeValidator(DateTime? notBefore, DateTime? expires, SecurityToken tokenToValidate, TokenValidationParameters @param)
-        {
-            if (expires != null)
-            {
-                return expires > DateTime.UtcNow;
-            }
-            return false;
         }
     }
 }

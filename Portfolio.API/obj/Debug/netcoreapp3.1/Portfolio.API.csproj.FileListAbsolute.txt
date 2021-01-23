@@ -95,3 +95,8 @@ D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API\bin\Debug\netcoreapp3.1\
 D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API\obj\Debug\netcoreapp3.1\Portfolio.API.MvcApplicationPartsAssemblyInfo.cs
 D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API\bin\Debug\netcoreapp3.1\Portfolio.API.xml
 D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API\obj\Debug\netcoreapp3.1\Portfolio.API.xml
+D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API\bin\Debug\netcoreapp3.1\log4net.config
+D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API\bin\Debug\netcoreapp3.1\log4net.dll
+D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
+D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
+D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
