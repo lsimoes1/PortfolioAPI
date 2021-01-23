@@ -88,3 +88,10 @@ D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API\obj\Debug\netcoreapp3.1\
 D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API\obj\Debug\netcoreapp3.1\Portfolio.API.dll
 D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API\obj\Debug\netcoreapp3.1\Portfolio.API.pdb
 D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API\obj\Debug\netcoreapp3.1\Portfolio.API.genruntimeconfig.cache
+D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API\obj\Debug\netcoreapp3.1\Portfolio.API.MvcApplicationPartsAssemblyInfo.cs
+D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API\bin\Debug\netcoreapp3.1\Portfolio.API.xml
+D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API\obj\Debug\netcoreapp3.1\Portfolio.API.xml

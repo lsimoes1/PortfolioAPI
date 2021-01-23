@@ -16,6 +16,7 @@ namespace Portfolio.API.Controllers
         }
         
         [HttpGet]
+        [Produces(typeof(ResponseHttp))]
         public IActionResult Get()
         {
             ResponseHttp response = _git.GetAllRepository();

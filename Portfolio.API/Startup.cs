@@ -15,7 +15,9 @@ using Portfolio.API.DAO;
 using Portfolio.API.Model.Security;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Portfolio.API
@@ -77,6 +79,16 @@ namespace Portfolio.API
                     .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
                     .RequireAuthenticatedUser().Build());
             });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "API Portfólio Site https://lsimoes.tech", Version = "v1" });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+                c.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,6 +98,13 @@ namespace Portfolio.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(x =>
+            {
+                x.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1");
+            });
 
             app.UseHttpsRedirection();
 
