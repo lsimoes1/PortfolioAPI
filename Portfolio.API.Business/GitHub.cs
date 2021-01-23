@@ -36,6 +36,7 @@ namespace Portfolio.API.Business
             if (responseApi.StatusCode.Equals(HttpStatusCode.OK))
             {
                 List<ResponseGit> listRepository = JsonConvert.DeserializeObject<List<ResponseGit>>(responseApi.Content.ReadAsStringAsync().Result);
+
                 return new ResponseHttp()
                 {
                     StatusCode = responseApi.StatusCode,
