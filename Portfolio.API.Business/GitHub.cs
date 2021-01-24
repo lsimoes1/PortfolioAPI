@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using Portfolio.API.Business.Interface;
 using Portfolio.API.Model.Response;
 using System;
@@ -11,9 +12,11 @@ namespace Portfolio.API.Business
     public class GitHub : IGitHub
     {
         private HttpClient client;
-        public GitHub()
+        private IConfiguration _configuration;
+        public GitHub(IConfiguration configuration)
         {
             client = new HttpClient();
+            _configuration = configuration;
         }
         public ResponseHttp GetAllRepository()
         {
@@ -21,7 +24,7 @@ namespace Portfolio.API.Business
             try
             {
                 client.DefaultRequestHeaders.UserAgent.TryParseAdd("request");
-                responseApi = client.GetAsync("https://api.github.com/users/lsimoes1/repos").Result;
+                responseApi = client.GetAsync(_configuration.GetSection("GitRepository").Value).Result;
             }
             catch (Exception ex)
             {

@@ -10,7 +10,7 @@ namespace Portfolio.API.DAO
 
         public UsersDAO()
         {
-            mongo = new MongoClient("mongodb://lsimoes:5826L0492*Cdb@cluster0-shard-00-00.jliuf.mongodb.net:27017,cluster0-shard-00-01.jliuf.mongodb.net:27017,cluster0-shard-00-02.jliuf.mongodb.net:27017/dbportfoliosite?ssl=true&replicaSet=atlas-edysej-shard-0&authSource=admin&retryWrites=true&w=majority");
+            mongo = new MongoClient(Environment.GetEnvironmentVariable("MongoDBConn"));
         }
 
         public User FindByUser(string userID)
