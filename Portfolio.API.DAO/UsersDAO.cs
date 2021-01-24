@@ -21,10 +21,15 @@ namespace Portfolio.API.DAO
             try
             {
                 IMongoDatabase database = mongo.GetDatabase("dbsite");
-                IMongoCollection<UserMongoDB> userdb = database.GetCollection<UserMongoDB>("security");
+                IMongoCollection<User> userdb = database.GetCollection<User>("security");
                 var responseMongo = userdb.Find(x => x.UserID.Equals(userID)).FirstOrDefault();
-                User user = new User() { UserID = responseMongo.UserID, AccessKey = responseMongo.AccessKey };
-                return user;
+
+                if (responseMongo == null)
+                {
+                    return null;
+                }
+
+                return new User() { UserID = responseMongo.UserID, AccessKey = responseMongo.AccessKey };
             }
             catch (Exception ex)
             {
