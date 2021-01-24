@@ -13,7 +13,7 @@ namespace Portfolio.API.DAO
         public UsersDAO(IConfiguration configuration)
         {
             _configuration = configuration;
-            mongo = new MongoClient(_configuration.GetConnectionString("mongodb"));
+            mongo = new MongoClient(Environment.GetEnvironmentVariable("MongoDBConn"));
         }
 
         public User FindByUser(string userID)
