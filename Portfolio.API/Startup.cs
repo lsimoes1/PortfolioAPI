@@ -117,6 +117,11 @@ namespace Portfolio.API
             {
                 endpoints.MapControllers();
             });
+
+            app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod());
         }
     }
 }
