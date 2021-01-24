@@ -10,3 +10,5 @@ D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API.Business\obj\Debug\netco
 D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API.Business\bin\Debug\netcoreapp3.1\Portfolio.API.Model.dll
 D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API.Business\bin\Debug\netcoreapp3.1\Portfolio.API.Model.pdb
 D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API.Business\obj\Debug\netcoreapp3.1\Portfolio.API.Business.csproj.CopyComplete
+D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API.Business\bin\Debug\netcoreapp3.1\Portfolio.API.DAO.dll
+D:\Documentos\Workspace-Git\Portfolio.API\Portfolio.API.Business\bin\Debug\netcoreapp3.1\Portfolio.API.DAO.pdb

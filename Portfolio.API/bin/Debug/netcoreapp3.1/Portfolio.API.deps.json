@@ -1331,6 +1331,7 @@
       },
       "Portfolio.API.Business/1.0.0": {
         "dependencies": {
+          "Portfolio.API.DAO": "1.0.0",
           "Portfolio.API.Model": "1.0.0"
         },
         "runtime": {

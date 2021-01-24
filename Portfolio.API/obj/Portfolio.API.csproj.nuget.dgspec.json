@@ -28,6 +28,9 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
+              "D:\\Documentos\\Workspace-Git\\Portfolio.API\\Portfolio.API.DAO\\Portfolio.API.DAO.csproj": {
+                "projectPath": "D:\\Documentos\\Workspace-Git\\Portfolio.API\\Portfolio.API.DAO\\Portfolio.API.DAO.csproj"
+              },
               "D:\\Documentos\\Workspace-Git\\Portfolio.API\\Portfolio.API.Model\\Portfolio.API.Model.csproj": {
                 "projectPath": "D:\\Documentos\\Workspace-Git\\Portfolio.API\\Portfolio.API.Model\\Portfolio.API.Model.csproj"
               }
