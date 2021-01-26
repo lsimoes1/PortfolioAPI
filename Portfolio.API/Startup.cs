@@ -2,23 +2,17 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Portfolio.API.Business;
 using Portfolio.API.Business.Interface;
 using Portfolio.API.DAO;
 using Portfolio.API.Model.Security;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Portfolio.API
 {
@@ -34,7 +28,7 @@ namespace Portfolio.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddCors();
 
             services.AddTransient<UsersDAO>();
             services.AddTransient<IGitHub, GitHub>();
@@ -90,6 +84,8 @@ namespace Portfolio.API
 
                 c.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
             });
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -111,6 +107,9 @@ namespace Portfolio.API
 
             app.UseRouting();
 
+            app.UseCors(option =>
+                option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -118,10 +117,7 @@ namespace Portfolio.API
                 endpoints.MapControllers();
             });
 
-            app.UseCors(x => x
-            .AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod());
+            app.UseHttpsRedirection();
         }
     }
 }

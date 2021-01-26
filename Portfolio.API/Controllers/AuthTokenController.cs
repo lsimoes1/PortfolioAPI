@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -11,12 +12,13 @@ using System.Security.Principal;
 
 namespace Portfolio.API.Controllers
 {
+    [EnableCors] 
     [Route("api/[controller]")]
     public class AuthTokenController : Controller
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-        [AllowAnonymous]
+        
+        
         [HttpPost]
         public object Post(
             [FromBody] User usuario,
