@@ -15,7 +15,7 @@ namespace Portfolio.API.Model
 
         public int Tipo { get; set; }
 
-        public string Periodo { get; set; }
+        public BsonDateTime DataConclusao { get; set; }
 
         public string Link { get; set; }
 
