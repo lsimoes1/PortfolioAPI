@@ -108,7 +108,11 @@ namespace Portfolio.API
             app.UseRouting();
 
             app.UseCors(option =>
-                option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+                option
+                .SetIsOriginAllowed(origin => true)
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
 
             app.UseAuthorization();
 
