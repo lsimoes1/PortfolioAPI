@@ -7,7 +7,9 @@ using Portfolio.API.Model.Response;
 namespace Portfolio.API.Controllers
 {
     [EnableCors]
+#if !DEBUG
     [Authorize("Bearer")]
+#endif
     [Route("api/[controller]")]
     public class AcademyController : Controller
     {

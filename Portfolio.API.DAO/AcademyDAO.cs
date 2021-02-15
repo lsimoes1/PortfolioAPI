@@ -1,11 +1,12 @@
 ﻿using MongoDB.Driver;
+using Portfolio.API.DAO.Interface;
 using Portfolio.API.Model;
 using System;
 using System.Collections.Generic;
 
 namespace Portfolio.API.DAO
 {
-    public class AcademyDAO
+    public class AcademyDAO : IAcademyDAO
     {
         private MongoClient mongo;
         public AcademyDAO()

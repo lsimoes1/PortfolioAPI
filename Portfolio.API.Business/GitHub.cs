@@ -11,14 +11,12 @@ namespace Portfolio.API.Business
 {
     public class GitHub : IGitHub
     {
-        private HttpClient client;
         private IConfiguration _configuration;
         public GitHub(IConfiguration configuration)
         {
-            client = new HttpClient();
             _configuration = configuration;
         }
-        public ResponseHttp GetAllRepository()
+        public ResponseHttp GetAllRepository(HttpClient client)
         {
             HttpResponseMessage responseApi = null;
             try
