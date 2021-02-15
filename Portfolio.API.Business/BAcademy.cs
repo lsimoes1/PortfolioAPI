@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Portfolio.API.Business.Interface;
 using Portfolio.API.DAO;
+using Portfolio.API.DAO.Interface;
 using Portfolio.API.Model;
 using Portfolio.API.Model.Response;
 using System;
@@ -11,12 +12,19 @@ namespace Portfolio.API.Business
 {
     public class BAcademy : IBAcademy
     {
+        private IAcademyDAO _academyDAO;
+
+        public BAcademy(IAcademyDAO academyDao)
+        {
+            _academyDAO = academyDao;
+        }
+
         public ResponseHttp getAcademy()
         {
             List<MAcademy> academy = null;
             try
             {
-                academy = new AcademyDAO().FindAllAcademyProjects();
+                academy = _academyDAO.FindAllAcademyProjects();
             }
             catch (Exception ex)
             {

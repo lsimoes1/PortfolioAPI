@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portfolio.API", "Portfolio.API\Portfolio.API.csproj", "{54B01747-D56A-4D29-86D1-749C52E1446B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio.API", "Portfolio.API\Portfolio.API.csproj", "{54B01747-D56A-4D29-86D1-749C52E1446B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portfolio.API.Model", "Portfolio.API.Model\Portfolio.API.Model.csproj", "{9FB83F90-FFA8-49CE-8348-EE17CEF9C37B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio.API.Model", "Portfolio.API.Model\Portfolio.API.Model.csproj", "{9FB83F90-FFA8-49CE-8348-EE17CEF9C37B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portfolio.API.DAO", "Portfolio.API.DAO\Portfolio.API.DAO.csproj", "{7B3BC104-4E3C-41FB-89F0-D2F2BBC645E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio.API.DAO", "Portfolio.API.DAO\Portfolio.API.DAO.csproj", "{7B3BC104-4E3C-41FB-89F0-D2F2BBC645E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portfolio.API.Business", "Portfolio.API.Business\Portfolio.API.Business.csproj", "{C17E9D52-C3CB-483C-B585-9888702BFE26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio.API.Business", "Portfolio.API.Business\Portfolio.API.Business.csproj", "{C17E9D52-C3CB-483C-B585-9888702BFE26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portfolio.API.xUnitTest", "Portfolio.API.xUnitTest\Portfolio.API.xUnitTest.csproj", "{19C7B490-F61A-440D-A2E5-BEA3B7C84FBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{C17E9D52-C3CB-483C-B585-9888702BFE26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C17E9D52-C3CB-483C-B585-9888702BFE26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C17E9D52-C3CB-483C-B585-9888702BFE26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19C7B490-F61A-440D-A2E5-BEA3B7C84FBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19C7B490-F61A-440D-A2E5-BEA3B7C84FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19C7B490-F61A-440D-A2E5-BEA3B7C84FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19C7B490-F61A-440D-A2E5-BEA3B7C84FBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,11 +3,14 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.API.Business.Interface;
 using Portfolio.API.Model.Response;
+using System.Net.Http;
 
 namespace Portfolio.API.Controllers
 {
     [EnableCors]
+#if !DEBUG
     [Authorize("Bearer")]
+#endif
     [Route("api/[controller]")]
     public class GitHubController : Controller
     {
@@ -21,7 +24,7 @@ namespace Portfolio.API.Controllers
         [Produces(typeof(ResponseHttp))]
         public IActionResult Get()
         {
-            ResponseHttp response = _git.GetAllRepository();
+            ResponseHttp response = _git.GetAllRepository(new HttpClient());
 
             Response.StatusCode = (int)response.StatusCode;
             return Content(response.Body);

@@ -9,9 +9,11 @@ using Microsoft.Extensions.Options;
 using Portfolio.API.Business;
 using Portfolio.API.Business.Interface;
 using Portfolio.API.DAO;
+using Portfolio.API.DAO.Interface;
 using Portfolio.API.Model.Security;
 using System;
 using System.IO;
+using System.Net.Http;
 using System.Reflection;
 
 namespace Portfolio.API
@@ -33,6 +35,7 @@ namespace Portfolio.API
             services.AddTransient<UsersDAO>();
             services.AddTransient<IGitHub, GitHub>();
             services.AddTransient<IBAcademy, BAcademy>();
+            services.AddTransient<IAcademyDAO, AcademyDAO>();
 
             var signingConfigurations = new SigningConfigurations();
             services.AddSingleton(signingConfigurations);
