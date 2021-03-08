@@ -1,7 +1,5 @@
 ﻿using MongoDB.Bson;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Portfolio.API.Model
 {
@@ -15,7 +13,7 @@ namespace Portfolio.API.Model
 
         public int Tipo { get; set; }
 
-        public BsonDateTime DataConclusao { get; set; }
+        public dynamic DataConclusao { get; set; }
 
         public string Link { get; set; }
 

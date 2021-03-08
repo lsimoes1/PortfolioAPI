@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using Microsoft.VisualBasic.CompilerServices;
+using MongoDB.Driver;
 using Portfolio.API.DAO.Interface;
 using Portfolio.API.Model;
 using System;
@@ -33,11 +34,6 @@ namespace Portfolio.API.DAO
             {
                 throw new Exception(ex.Message);
             }
-        }
-
-        public object FindByName(string name)
-        {
-            throw new NotImplementedException();
         }
     }
 }

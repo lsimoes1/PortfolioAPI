@@ -19,40 +19,33 @@ namespace Portfolio.API.Business
             _academyDAO = academyDao;
         }
 
-        public ResponseHttp getAcademy()
+        public List<MAcademy> getAcademy()
         {
-            List<MAcademy> academy = null;
             try
             {
-                academy = _academyDAO.FindAllAcademyProjects();
+                List<MAcademy> academy = null;
+                try
+                {
+                    academy = _academyDAO.FindAllAcademyProjects();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+
+                if (academy == null || academy.Count.Equals(0))
+                {
+                    return null;
+                }
+                else
+                {
+                    return academy;
+                }
             }
             catch (Exception ex)
             {
-                return new ResponseHttp()
-                {
-                    StatusCode = HttpStatusCode.InternalServerError,
-                    Body = ex.Message
-                };
-            }
-
-            if (academy == null || academy.Count.Equals(0))
-            {
-                return new ResponseHttp()
-                {
-                    StatusCode = HttpStatusCode.NotFound,
-                    Body = "Nenhum registro encontrado."
-                };
-            }
-            else
-            {
-                return new ResponseHttp()
-                {
-                    StatusCode = HttpStatusCode.OK,
-                    Body = JsonConvert.SerializeObject(academy)
-                };
+                throw new Exception(ex.Message);
             }
         }
-
-       
     }
 }

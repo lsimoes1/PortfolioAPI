@@ -1,9 +1,11 @@
-﻿using Portfolio.API.Model.Response;
+﻿using Portfolio.API.Model;
+using Portfolio.API.Model.Response;
+using System.Collections.Generic;
 
 namespace Portfolio.API.Business.Interface
 {
     public interface IBAcademy
     {
-        ResponseHttp getAcademy(); 
+        List<MAcademy> getAcademy(); 
     }
 }

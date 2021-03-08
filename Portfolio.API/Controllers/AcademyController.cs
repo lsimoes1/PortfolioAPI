@@ -2,29 +2,46 @@
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.API.Business.Interface;
-using Portfolio.API.Model.Response;
+using Portfolio.API.Model;
+using System;
+using System.Collections.Generic;
 
 namespace Portfolio.API.Controllers
 {
     [EnableCors]
-#if !DEBUG
-    [Authorize("Bearer")]
-#endif
+
+    //Desativado devido a baixa perfomance no site.
+    //[Authorize("Bearer")]
+
     [Route("api/[controller]")]
     public class AcademyController : Controller
     {
         IBAcademy _academy;
+
         public AcademyController(IBAcademy academy)
         {
             _academy = academy;
         }
+
         [HttpGet]
+        [Produces(typeof(MAcademy))]
         public IActionResult Get()
         {
-            ResponseHttp response = _academy.getAcademy();
+            try
+            {
+                List<MAcademy> response = _academy.getAcademy();
 
-            Response.StatusCode = (int)response.StatusCode;
-            return Content(response.Body);
+                if (response == null || response.Equals(string.Empty))
+                {
+                    return NotFound("Nenhum registro encontrado!");
+                }
+                
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

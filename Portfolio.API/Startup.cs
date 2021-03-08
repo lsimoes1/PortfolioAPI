@@ -36,6 +36,8 @@ namespace Portfolio.API
             services.AddTransient<IGitHub, GitHub>();
             services.AddTransient<IBAcademy, BAcademy>();
             services.AddTransient<IAcademyDAO, AcademyDAO>();
+            services.AddTransient<IBProfessional, BProfessional>();
+            services.AddTransient<IProfessionalDAO, ProfessionalDAO>();
 
             var signingConfigurations = new SigningConfigurations();
             services.AddSingleton(signingConfigurations);

@@ -16,7 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Portfolio.API.xUnitTest
+namespace Portfolio.API.xUnitTest.Business
 {
     public class GitHubTest
     {
@@ -46,7 +46,7 @@ namespace Portfolio.API.xUnitTest
 
             // ASSERT
             Assert.NotNull(result);
-            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+            Assert.Equal(JsonConvert.SerializeObject(listGit), result);
         }
 
         [Fact]
@@ -60,21 +60,7 @@ namespace Portfolio.API.xUnitTest
 
             var result = testGit.GetAllRepository(httpClient);
 
-            Assert.Equal(HttpStatusCode.NotFound, result.StatusCode);
-        }
-
-        [Fact]
-        public void Test_GitHub_BadRequest_FromGit()
-        {
-            var handlerMock = this.CreateMockHandler("BadRequest", HttpStatusCode.BadRequest);
-
-            var httpClient = new HttpClient(handlerMock.Object);
-
-            var testGit = new GitHub(configuration);
-
-            var result = testGit.GetAllRepository(httpClient);
-
-            Assert.Equal(HttpStatusCode.BadRequest, result.StatusCode);
+            Assert.Equal("NotFound", result);
         }
 
         [Fact]
@@ -86,12 +72,9 @@ namespace Portfolio.API.xUnitTest
 
             var testGit = new GitHub(null);
 
-            ResponseHttp result;
+            string result = testGit.GetAllRepository(httpClient);
 
-            result = testGit.GetAllRepository(httpClient);
-
-            Assert.Equal(HttpStatusCode.InternalServerError, result.StatusCode);
-            Assert.Equal("Object reference not set to an instance of an object.", result.Body);
+            Assert.Equal("System.Exception : Erro na chamada da API do Git - Object reference not set to an instance of an object.", result);
         }
 
         private Mock<HttpMessageHandler> CreateMockHandler(string listgit, HttpStatusCode statusCode)
@@ -118,18 +101,16 @@ namespace Portfolio.API.xUnitTest
 
         private List<ResponseGit> CreateFakeObj()
         {
-            List<ResponseGit> listGit = new List<ResponseGit>();
-            ResponseGit objGit = new Faker<ResponseGit>()
+            List<ResponseGit> objGit = new Faker<ResponseGit>()
                 .RuleFor(p => p.Description, p => p.Random.Word())
             .RuleFor(p => p.NameProject, p => p.Company.CompanyName())
             .RuleFor(p => p.HomePage, p => p.Internet.Url())
             .RuleFor(p => p.Language, p => p.Random.Word())
             .RuleFor(p => p.LastUpdate, p => p.Date.Past())
-            .RuleFor(p => p.UrlRepository, p => p.Internet.Url());
+            .RuleFor(p => p.UrlRepository, p => p.Internet.Url())
+            .Generate(new Random().Next(1, 20), null);
 
-            listGit.Add(objGit);
-
-            return listGit;
+            return objGit;
         }
 
         private IConfigurationRoot CreateConfiguration()

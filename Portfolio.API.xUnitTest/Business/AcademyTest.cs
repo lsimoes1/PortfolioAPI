@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Net;
 using Xunit;
 
-namespace Portfolio.API.xUnitTest
+namespace Portfolio.API.xUnitTest.Business
 {
     public class AcademyTest
     {
@@ -20,18 +20,17 @@ namespace Portfolio.API.xUnitTest
 
         private List<MAcademy> CreateFakeObj()
         {
-            List<MAcademy> listAcademy = new List<MAcademy>();
-            MAcademy academyobj = new Faker<MAcademy>()
+            List<MAcademy> academyobj = new Faker<MAcademy>()
                 .RuleFor(p => p.Descricao, p => p.Random.Word())
             .RuleFor(p => p.Nome, p => p.Name.FirstName())
             .RuleFor(p => p.Concluido, p => p.Random.Bool())
             .RuleFor(p => p.DataConclusao, p => p.Date.Past())
             .RuleFor(p => p.Imagem, p => p.Internet.Url())
             .RuleFor(p => p.Linguagem, p => p.Random.Word())
-            .RuleFor(p => p.Tipo, p => p.Random.Int());
-            listAcademy.Add(academyobj);
+            .RuleFor(p => p.Tipo, p => p.Random.Int())
+            .Generate(new Random().Next(1, 10), null);
 
-            return listAcademy;
+            return academyobj;
         }
 
         [Fact]
@@ -39,11 +38,12 @@ namespace Portfolio.API.xUnitTest
         {
             bussines = new Mock<IAcademyDAO>();
 
-            bussines.Setup(x => x.FindAllAcademyProjects()).Returns(this.CreateFakeObj());
+            var objFake = this.CreateFakeObj();
+            bussines.Setup(x => x.FindAllAcademyProjects()).Returns(objFake);
             academy = new BAcademy(bussines.Object);
-            ResponseHttp response = academy.getAcademy();
+            string response = academy.getAcademy();
 
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(JsonConvert.SerializeObject(objFake), response);
         }
 
         [Fact]
@@ -52,13 +52,12 @@ namespace Portfolio.API.xUnitTest
             bussines = new Mock<IAcademyDAO>();
 
             List<MAcademy> listAcademy = new List<MAcademy>();
-            MAcademy academyobj = null;
 
             bussines.Setup(x => x.FindAllAcademyProjects()).Returns(listAcademy);
             academy = new BAcademy(bussines.Object);
-            ResponseHttp response = academy.getAcademy();
+            string response = academy.getAcademy();
 
-            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+            Assert.Null(response);
         }
     }
 }

@@ -6,20 +6,22 @@ namespace Portfolio.API.DAO
 {
     public class UsersDAO
     {
-        private MongoClient mongo;
+        private IMongoClient mongo;
+        private IMongoDatabase _database;
+        private IMongoCollection<User> _userdb;
 
         public UsersDAO()
         {
             mongo = new MongoClient(Environment.GetEnvironmentVariable("MongoDBConn"));
+            _database = mongo.GetDatabase("dbsite");
+            _userdb = _database.GetCollection<User>("security");
         }
 
         public User FindByUser(string userID)
         {
             try
             {
-                IMongoDatabase database = mongo.GetDatabase("dbsite");
-                IMongoCollection<User> userdb = database.GetCollection<User>("security");
-                var responseMongo = userdb.Find(x => x.UserID.Equals(userID)).FirstOrDefault();
+                var responseMongo = _userdb.Find(x => x.UserID.Equals(userID)).FirstOrDefault();
 
                 if (responseMongo == null)
                 {

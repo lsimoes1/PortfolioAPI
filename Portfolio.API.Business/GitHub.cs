@@ -16,7 +16,7 @@ namespace Portfolio.API.Business
         {
             _configuration = configuration;
         }
-        public ResponseHttp GetAllRepository(HttpClient client)
+        public List<ResponseGit> GetAllRepository(HttpClient client)
         {
             HttpResponseMessage responseApi = null;
             try
@@ -26,31 +26,17 @@ namespace Portfolio.API.Business
             }
             catch (Exception ex)
             {
-
-                return new ResponseHttp()
-                {
-                    StatusCode = responseApi == null ? HttpStatusCode.InternalServerError : responseApi.StatusCode,
-                    Body = ex.Message
-                };
+                throw new Exception($"Erro na chamada da API do Git - {ex.Message}");
             }
 
             if (responseApi.StatusCode.Equals(HttpStatusCode.OK))
             {
                 List<ResponseGit> listRepository = JsonConvert.DeserializeObject<List<ResponseGit>>(responseApi.Content.ReadAsStringAsync().Result);
-
-                return new ResponseHttp()
-                {
-                    StatusCode = responseApi.StatusCode,
-                    Body = JsonConvert.SerializeObject(listRepository)
-                };
+                return listRepository;
             }
             else
             {
-                return new ResponseHttp()
-                {
-                    StatusCode = responseApi.StatusCode,
-                    Body = responseApi.Content.ReadAsStringAsync().Result
-                };
+                return null;
             }
         }
     }
