@@ -16,103 +16,104 @@ namespace Portfolio.API.Controllers
     [Route("api/[controller]")]
     public class AuthTokenController : Controller
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        //private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         
-        
-        [HttpPost]
-        public object Post(
-            [FromBody] User usuario,
-            [FromServices] UsersDAO usersDAO,
-            [FromServices] SigningConfigurations signingConfigurations,
-            [FromServices] TokenConfigurations tokenConfigurations)
-        {
-            bool credenciaisValidas = false;
-            User usuarioBase = null;
-            if (usuario != null && !String.IsNullOrWhiteSpace(usuario.UserID))
-            {
-                log.Info("Requisição de autenticação - UserID: " + usuario.UserID);
-                try
-                {
-                    log.Info("Solicitando credenciais da base de dados - UserID: " + usuario.UserID);
-                    usuarioBase = usersDAO.FindByUser(usuario.UserID);
-                }
-                catch (Exception ex)
-                {
-                    log.Error("Erro ao consultar o banco UserID: " + usuario.UserID + " - Error: " + ex.Message);
-                    return new
-                    {
-                        authenticated = false,
-                        message = "Erro ao consultar UserID - " + ex.Message
-                    };
-                }
+        //COMENTADO DEVIDO A BAIXA PERFORMANCE.
 
-                if (usuarioBase != null)
-                {
-                    credenciaisValidas = (usuarioBase != null &&
-                    usuario.UserID == usuarioBase.UserID &&
-                    usuario.AccessKey == usuarioBase.AccessKey);
-                }
-                else
-                {
-                    log.Warn("Usuário não encontado na base - UserID: " + usuario.UserID);
-                    Response.StatusCode = StatusCodes.Status401Unauthorized;
-                    return new
-                    {
-                        authenticated = false,
-                        message = "UserID Não encontrado na base!"
-                    };
-                };
-            }
+        //[HttpPost]
+        //public object Post(
+        //    [FromBody] User usuario,
+        //    [FromServices] UsersDAO usersDAO,
+        //    [FromServices] SigningConfigurations signingConfigurations,
+        //    [FromServices] TokenConfigurations tokenConfigurations)
+        //{
+        //    bool credenciaisValidas = false;
+        //    User usuarioBase = null;
+        //    if (usuario != null && !String.IsNullOrWhiteSpace(usuario.UserID))
+        //    {
+        //        log.Info("Requisição de autenticação - UserID: " + usuario.UserID);
+        //        try
+        //        {
+        //            log.Info("Solicitando credenciais da base de dados - UserID: " + usuario.UserID);
+        //            usuarioBase = usersDAO.FindByUser(usuario.UserID);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            log.Error("Erro ao consultar o banco UserID: " + usuario.UserID + " - Error: " + ex.Message);
+        //            return new
+        //            {
+        //                authenticated = false,
+        //                message = "Erro ao consultar UserID - " + ex.Message
+        //            };
+        //        }
 
-            if (credenciaisValidas)
-            {
-                log.Info("Credenciais válidas - UserID: " + usuario.UserID);
+        //        if (usuarioBase != null)
+        //        {
+        //            credenciaisValidas = (usuarioBase != null &&
+        //            usuario.UserID == usuarioBase.UserID &&
+        //            usuario.AccessKey == usuarioBase.AccessKey);
+        //        }
+        //        else
+        //        {
+        //            log.Warn("Usuário não encontado na base - UserID: " + usuario.UserID);
+        //            Response.StatusCode = StatusCodes.Status401Unauthorized;
+        //            return new
+        //            {
+        //                authenticated = false,
+        //                message = "UserID Não encontrado na base!"
+        //            };
+        //        };
+        //    }
 
-                ClaimsIdentity identity = new ClaimsIdentity(
-                    new GenericIdentity(usuario.UserID, "Login"),
-                    new[] {
-                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
-                        new Claim(JwtRegisteredClaimNames.UniqueName, usuario.UserID)
-                    }
-                );
+        //    if (credenciaisValidas)
+        //    {
+        //        log.Info("Credenciais válidas - UserID: " + usuario.UserID);
 
-                DateTime dataCriacao = DateTime.Now;
-                DateTime dataExpiracao = DateTime.Now.AddMinutes(5);
+        //        ClaimsIdentity identity = new ClaimsIdentity(
+        //            new GenericIdentity(usuario.UserID, "Login"),
+        //            new[] {
+        //                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
+        //                new Claim(JwtRegisteredClaimNames.UniqueName, usuario.UserID)
+        //            }
+        //        );
 
-                log.Info("Realizando a criação do token - UserID: " + usuario.UserID);
+        //        DateTime dataCriacao = DateTime.Now;
+        //        DateTime dataExpiracao = DateTime.Now.AddMinutes(5);
 
-                var handler = new JwtSecurityTokenHandler();
-                var securityToken = handler.CreateToken(new SecurityTokenDescriptor
-                {
-                    Issuer = tokenConfigurations.Issuer,
-                    Audience = tokenConfigurations.Audience,
-                    SigningCredentials = signingConfigurations.SigningCredentials,
-                    Subject = identity,
-                    Expires = dataExpiracao,
-                    NotBefore = dataCriacao
-                });
-                var token = handler.WriteToken(securityToken);
+        //        log.Info("Realizando a criação do token - UserID: " + usuario.UserID);
 
-                log.Info("Token criado com sucesso - UserID: " + usuario.UserID);
+        //        var handler = new JwtSecurityTokenHandler();
+        //        var securityToken = handler.CreateToken(new SecurityTokenDescriptor
+        //        {
+        //            Issuer = tokenConfigurations.Issuer,
+        //            Audience = tokenConfigurations.Audience,
+        //            SigningCredentials = signingConfigurations.SigningCredentials,
+        //            Subject = identity,
+        //            Expires = dataExpiracao,
+        //            NotBefore = dataCriacao
+        //        });
+        //        var token = handler.WriteToken(securityToken);
 
-                return new
-                {
-                    authenticated = true,
-                    created = dataCriacao.ToString("yyyy-MM-dd HH:mm:ss"),
-                    expiration = dataExpiracao.ToString("yyyy-MM-dd HH:mm:ss"),
-                    accessToken = token,
-                    message = "OK"
-                };
-            }
-            else
-            {
-                log.Warn("Falha na autenticação do token - UserID: " + usuario.UserID);
-                return new
-                {
-                    authenticated = false,
-                    message = "Falha ao autenticar"
-                };
-            }
-        }
+        //        log.Info("Token criado com sucesso - UserID: " + usuario.UserID);
+
+        //        return new
+        //        {
+        //            authenticated = true,
+        //            created = dataCriacao.ToString("yyyy-MM-dd HH:mm:ss"),
+        //            expiration = dataExpiracao.ToString("yyyy-MM-dd HH:mm:ss"),
+        //            accessToken = token,
+        //            message = "OK"
+        //        };
+        //    }
+        //    else
+        //    {
+        //        log.Warn("Falha na autenticação do token - UserID: " + usuario.UserID);
+        //        return new
+        //        {
+        //            authenticated = false,
+        //            message = "Falha ao autenticar"
+        //        };
+        //    }
+        //}
     }
 }
